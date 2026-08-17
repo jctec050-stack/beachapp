@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Liga Beach — Premium Coastal Tournament</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,600;0,700;0,800;1,300&amp;family=Inter:wght@300;400;500;600&amp;family=Caveat:wght@400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "ink": "#080c14",
+                        "ink-light": "#121a29",
+                        "sand": "#f0e1c7",
+                        "coral": "#ff7e5f",
+                        "sunset": "#feb47b",
+                        "primary": "#a7c8ff",
+                        "surface": "#0b1326",
+                        "on-surface": "#dae2fd",
+                        "outline-variant": "#43474f",
+                    },
+                    "fontFamily": {
+                        "display": ["Montserrat", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "handwritten": ["Caveat", "cursive"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background: linear-gradient(135deg, #080c14 0%, #121a29 50%, #1a1625 100%);
+            background-attachment: fixed;
+        }
+
+        .coastal-mist {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px) saturate(120%);
+            border: 1px solid rgba(240, 225, 199, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .noise-texture {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.02;
+            pointer-events: none;
+        }
+
+        .play-button-organic {
+            border-radius: 60% 40% 63% 37% / 41% 54% 46% 59%;
+            background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
+            box-shadow: 
+                0 0 0 4px rgba(255, 126, 95, 0.1),
+                0 20px 40px rgba(255, 126, 95, 0.4),
+                inset 0 -4px 10px rgba(0,0,0,0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .play-button-organic:hover {
+            border-radius: 40% 60% 37% 63% / 54% 41% 59% 46%;
+            transform: scale(1.05) rotate(-1deg);
+            box-shadow: 
+                0 0 0 8px rgba(255, 126, 95, 0.15),
+                0 25px 50px rgba(255, 126, 95, 0.5);
+        }
+
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+        }
+
+        .letter-spaced-tight { letter-spacing: -0.04em; }
+        .letter-spaced-wide { letter-spacing: 0.15em; }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(240, 225, 199, 0.2); border-radius: 10px; }
+
+        .organic-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="text-on-surface font-body selection:bg-coral/30 selection:text-white overflow-x-hidden">
+<!-- Subtle Background Glows -->
+<div class="fixed top-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-coral/5 blur-[150px] rounded-full pointer-events-none z-0"></div>
+<div class="fixed bottom-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-primary/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
+<!-- Header -->
+<header class="fixed top-0 w-full z-50 px-6 md:px-12 py-6 flex justify-between items-center bg-transparent backdrop-blur-md border-b border-white/5">
+<div class="flex items-center gap-10">
+<span class="font-display text-2xl font-extrabold tracking-tighter text-white">LIGA<span class="text-coral">BEACH</span></span>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-xs uppercase tracking-widest font-semibold hover:text-coral transition-colors" href="#">Tournaments</a>
+<a class="text-xs uppercase tracking-widest font-semibold opacity-50 hover:opacity-100 transition-all" href="#">Courts</a>
+<a class="text-xs uppercase tracking-widest font-semibold opacity-50 hover:opacity-100 transition-all" href="#">Players</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<button class="hidden md:block text-xs font-bold uppercase tracking-widest border border-white/20 px-6 py-2.5 rounded-full hover:bg-white hover:text-ink transition-all">New Entry</button>
+<span class="material-symbols-outlined text-xl cursor-pointer hover:text-coral">notifications</span>
+<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-coral to-sunset p-[1px]">
+<div class="w-full h-full rounded-full bg-ink flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Sidebar - Editorial Style -->
+<aside class="hidden lg:flex fixed left-0 top-0 h-full w-24 flex-col items-center py-24 border-r border-white/5 z-40">
+<div class="flex flex-col gap-12 mt-12">
+<a class="group relative" href="#">
+<span class="material-symbols-outlined text-coral">space_dashboard</span>
+<span class="absolute left-16 top-1/2 -translate-y-1/2 bg-coral text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity font-bold uppercase">Home</span>
+</a>
+<a class="group relative" href="#">
+<span class="material-symbols-outlined opacity-30 group-hover:opacity-100 transition-opacity">sports_tennis</span>
+</a>
+<a class="group relative" href="#">
+<span class="material-symbols-outlined opacity-30 group-hover:opacity-100 transition-opacity">settings_input_component</span>
+</a>
+<a class="group relative" href="#">
+<span class="material-symbols-outlined opacity-30 group-hover:opacity-100 transition-opacity">history_edu</span>
+</a>
+</div>
+<div class="mt-auto pb-8">
+<div class="rotate-[-90deg] origin-center whitespace-nowrap text-[10px] uppercase tracking-[0.4em] font-bold opacity-20">Premium Coast '24</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="pt-32 pb-24 px-6 md:px-12 lg:ml-24 relative z-10 max-w-7xl mx-auto">
+<!-- Intro -->
+<div class="mb-20 flex flex-col items-start lg:items-center">
+<div class="inline-block px-3 py-1 bg-coral/10 rounded-full mb-6">
+<span class="font-handwritten text-coral text-xl">Coastal Vibes Only</span>
+</div>
+<h1 class="font-display text-5xl md:text-8xl font-black text-white letter-spaced-tight leading-none mb-4 lg:text-center">
+            Tournament<br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-coral via-sunset to-primary">Config</span>
+</h1>
+<p class="font-body text-lg text-on-surface/60 max-w-xl lg:text-center font-light">
+            Crafting the perfect American tournament experience. Adjust your settings for the ultimate beachfront competition.
+        </p>
+</div>
+<!-- Asymmetric Layout Section -->
+<div class="asymmetric-grid mb-12">
+<!-- Main Panel: Players -->
+<section class="col-span-12 lg:col-span-8 coastal-mist rounded-[2rem] p-8 md:p-12 relative overflow-hidden">
+<div class="noise-texture absolute inset-0"></div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div>
+<h2 class="font-display text-3xl font-bold text-white mb-1">Participantes</h2>
+<p class="font-handwritten text-sunset text-lg">— Who's hitting the sand today?</p>
+</div>
+<button class="flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-sm">person_add</span>
+                    Invite Players
+                </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+<!-- Inputs with custom styling -->
+<div class="group relative border-b border-white/10 pb-2 hover:border-coral transition-all">
+<span class="absolute right-0 bottom-3 font-handwritten text-white/20 text-sm italic">Player 01</span>
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 text-xl font-light text-white placeholder:text-white/10" placeholder="Nombre..." type="text" value="Julian Casablancas"/>
+</div>
+<div class="group relative border-b border-white/10 pb-2 hover:border-coral transition-all">
+<span class="absolute right-0 bottom-3 font-handwritten text-white/20 text-sm italic">Player 02</span>
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 text-xl font-light text-white placeholder:text-white/10" placeholder="Nombre..." type="text" value="Elena Rossi"/>
+</div>
+<div class="group relative border-b border-white/10 pb-2 hover:border-coral transition-all">
+<span class="absolute right-0 bottom-3 font-handwritten text-white/20 text-sm italic">Player 03</span>
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 text-xl font-light text-white placeholder:text-white/10" placeholder="Nombre..." type="text" value="Mark Thompson"/>
+</div>
+<div class="group relative border-b border-white/10 pb-2 hover:border-coral transition-all">
+<span class="absolute right-0 bottom-3 font-handwritten text-white/20 text-sm italic">Player 04</span>
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 text-xl font-light text-white placeholder:text-white/10" placeholder="Nombre..." type="text" value="Sofia Chen"/>
+</div>
+<div class="group relative border-b border-white/10 pb-2 hover:border-coral transition-all">
+<span class="absolute right-0 bottom-3 font-handwritten text-white/20 text-sm italic">Player 05</span>
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 text-xl font-light text-white placeholder:text-white/10" placeholder="Nombre..." type="text" value="Hugo Mendes"/>
+</div>
+<div class="group relative border-b border-white/10 pb-2 hover:border-coral transition-all">
+<span class="absolute right-0 bottom-3 font-handwritten text-white/20 text-sm italic">Player 06</span>
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 text-xl font-light text-white placeholder:text-white/10" placeholder="Nombre..." type="text" value="Clara Varga"/>
+</div>
+</div>
+<!-- Quick Stats -->
+<div class="mt-16 pt-8 border-t border-white/5 flex flex-wrap gap-12">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-widest font-bold opacity-30 mb-2">Total Capacity</span>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-display font-bold text-white">08</span>
+<span class="text-xs font-handwritten text-coral italic">Slots filled</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-widest font-bold opacity-30 mb-2">Court Load</span>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-display font-bold text-white">Balanced</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Secondary Column: Stats & Settings -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<!-- Pistas Card -->
+<div class="coastal-mist rounded-[2rem] p-8 relative overflow-hidden group">
+<div class="noise-texture absolute inset-0"></div>
+<span class="material-symbols-outlined absolute top-6 right-6 text-white/10 text-6xl group-hover:text-coral/20 transition-colors">grid_view</span>
+<label class="block text-[10px] uppercase tracking-[0.2em] font-black text-white/40 mb-6">Pistas Disponibles</label>
+<div class="flex items-center gap-8">
+<span class="font-display text-7xl font-light text-white letter-spaced-tight">02</span>
+<div class="flex flex-col gap-2">
+<button class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-ink transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+<button class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-ink transition-all">
+<span class="material-symbols-outlined text-sm">remove</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Rondas Card -->
+<div class="coastal-mist rounded-[2rem] p-8 relative overflow-hidden group">
+<div class="noise-texture absolute inset-0"></div>
+<span class="material-symbols-outlined absolute top-6 right-6 text-white/10 text-6xl group-hover:text-primary/20 transition-colors">cached</span>
+<label class="block text-[10px] uppercase tracking-[0.2em] font-black text-white/40 mb-6">Rondas Automáticas</label>
+<div class="flex items-center gap-8">
+<span class="font-display text-7xl font-light text-white letter-spaced-tight">07</span>
+<div class="flex flex-col gap-2">
+<p class="font-handwritten text-primary text-xl mt-2 italic">Perfectly timed.</p>
+</div>
+</div>
+</div>
+<!-- Match Start CTA (Organic Shape) -->
+<div class="mt-4 flex justify-center lg:justify-start">
+<button class="play-button-organic w-full py-12 px-8 flex items-center justify-center gap-4 group">
+<span class="material-symbols-outlined text-4xl text-ink font-bold">play_arrow</span>
+<span class="font-display text-2xl font-black text-ink uppercase tracking-tighter">¡A JUGAR!</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Handcrafted Details -->
+<div class="mt-24 grid grid-cols-1 md:grid-cols-3 gap-12 items-center opacity-30">
+<div class="flex items-center gap-4 border-l border-white/20 pl-6 py-2">
+<span class="material-symbols-outlined text-3xl">waves</span>
+<div>
+<p class="text-[10px] font-bold uppercase tracking-widest">Coastal Spirit</p>
+<p class="font-handwritten italic text-xs">Atlantic Breeze Integrated</p>
+</div>
+</div>
+<div class="flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-4xl mb-2 text-sunset">wb_sunny</span>
+<p class="text-[8px] font-black uppercase tracking-[0.5em]">LIGA BEACH EDITION '24</p>
+</div>
+<div class="flex items-center justify-end gap-4 border-r border-white/20 pr-6 py-2">
+<div class="text-right">
+<p class="text-[10px] font-bold uppercase tracking-widest">Premier Club</p>
+<p class="font-handwritten italic text-xs">Exclusividad en Padel</p>
+</div>
+<span class="material-symbols-outlined text-3xl">sailing</span>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Bar - Coastal Style -->
+<nav class="lg:hidden fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-5 bg-ink/80 backdrop-blur-xl border-t border-white/5">
+<a class="flex flex-col items-center text-coral" href="#"><span class="material-symbols-outlined text-2xl">waves</span></a>
+<a class="flex flex-col items-center opacity-40" href="#"><span class="material-symbols-outlined text-2xl">account_tree</span></a>
+<a class="flex flex-col items-center relative -top-4 w-14 h-14 bg-gradient-to-tr from-coral to-sunset rounded-full shadow-lg flex items-center justify-center text-ink" href="#">
+<span class="material-symbols-outlined text-2xl font-bold">play_arrow</span>
+</a>
+<a class="flex flex-col items-center opacity-40" href="#"><span class="material-symbols-outlined text-2xl">settings</span></a>
+<a class="flex flex-col items-center opacity-40" href="#"><span class="material-symbols-outlined text-2xl">person</span></a>
+</nav>
+<script>
+    // Subtle parallax or mouse interaction for that 'handcrafted' feel
+    document.addEventListener('mousemove', (e) => {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        
+        // Slightly move the organic glows
+        const glows = document.querySelectorAll('.fixed.pointer-events-none');
+        glows.forEach((glow, idx) => {
+            const factor = (idx + 1) * 20;
+            glow.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+        });
+    });
+
+    // Animate inputs on focus
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('focus', () => {
+            input.parentElement.style.borderColor = '#ff7e5f';
+            input.parentElement.style.paddingLeft = '8px';
+        });
+        input.addEventListener('blur', () => {
+            input.parentElement.style.borderColor = 'rgba(255,255,255,0.1)';
+            input.parentElement.style.paddingLeft = '0px';
+        });
+    });
+</script>
+</body></html>
