@@ -61,3 +61,13 @@ GROUP BY p.tournament_id, p.id, p.name;
 ALTER TABLE tournaments DISABLE ROW LEVEL SECURITY;
 ALTER TABLE players DISABLE ROW LEVEL SECURITY;
 ALTER TABLE matches DISABLE ROW LEVEL SECURITY;
+
+-- View to calculate global championship standings across all tournaments
+CREATE OR REPLACE VIEW championship_standings AS
+SELECT 
+    player_name,
+    SUM(points_for) as total_points_for,
+    SUM(points_against) as total_points_against,
+    SUM(matches_played) as total_matches_played
+FROM tournament_standings
+GROUP BY player_name;

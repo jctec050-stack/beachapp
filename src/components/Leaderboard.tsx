@@ -24,45 +24,45 @@ export function Leaderboard({ entries }: LeaderboardProps) {
   });
 
   return (
-    <div className="rounded-3xl bg-white/60 p-6 backdrop-blur-xl border border-white/60 shadow-2xl dark:bg-slate-800/60 dark:border-slate-700/50">
-      <div className="mb-6 flex items-center space-x-3">
-        <Trophy className="h-8 w-8 text-yellow-500 drop-shadow-md" />
-        <h2 className="bg-gradient-to-r from-yellow-500 to-amber-600 bg-clip-text text-2xl font-black text-transparent tracking-tight">
+    <div className="rounded-lg bg-white p-5 border border-gray-200 shadow-sm">
+      <div className="mb-5 flex items-center space-x-2">
+        <Trophy className="h-5 w-5 text-gray-700" />
+        <h2 className="text-lg font-bold text-gray-900 tracking-tight">
           Clasificación
         </h2>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-white/50 bg-white/50 shadow-inner dark:border-slate-700/50 dark:bg-slate-900/50">
-        <table className="w-full text-left text-sm text-slate-800 dark:text-slate-200">
-          <thead className="bg-slate-100/80 text-xs uppercase text-slate-800 dark:bg-slate-950/80 dark:text-slate-400">
+      <div className="overflow-hidden rounded-md border border-gray-200 bg-white">
+        <table className="w-full text-left text-sm text-gray-700">
+          <thead className="bg-gray-50 text-xs uppercase text-gray-500 border-b border-gray-200">
             <tr>
-              <th className="px-4 py-4 text-center font-bold">#</th>
-              <th className="px-4 py-4 font-bold">Jugador</th>
-              <th className="px-3 py-4 text-center font-bold">PJ</th>
-              <th className="px-3 py-4 text-center font-bold">PTS</th>
-              <th className="px-3 py-4 text-center font-bold">DIF</th>
+              <th className="px-3 py-3 text-center font-semibold">#</th>
+              <th className="px-3 py-3 font-semibold">Jugador</th>
+              <th className="px-2 py-3 text-center font-semibold">PJ</th>
+              <th className="px-2 py-3 text-center font-semibold">PTS</th>
+              <th className="px-2 py-3 text-center font-semibold">DIF</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-200/50 dark:divide-slate-700/50">
+          <tbody className="divide-y divide-gray-100">
             {sorted.map((entry, index) => {
               const diff = entry.pointsFor - entry.pointsAgainst;
               return (
                 <tr
                   key={entry.playerId}
-                  className="transition-colors hover:bg-white/80 dark:hover:bg-slate-800/80"
+                  className="transition-colors hover:bg-gray-50"
                 >
-                  <td className="px-4 py-4 text-center font-bold">
-                    {index === 0 && <Medal className="mx-auto h-6 w-6 text-yellow-400 drop-shadow-md" />}
-                    {index === 1 && <Medal className="mx-auto h-6 w-6 text-slate-400 drop-shadow-md" />}
-                    {index === 2 && <Medal className="mx-auto h-6 w-6 text-amber-600 drop-shadow-md" />}
-                    {index > 2 && <span className="text-slate-500">{index + 1}</span>}
+                  <td className="px-3 py-3 text-center font-medium">
+                    {index === 0 && <Medal className="mx-auto h-5 w-5 text-yellow-500" />}
+                    {index === 1 && <Medal className="mx-auto h-5 w-5 text-gray-400" />}
+                    {index === 2 && <Medal className="mx-auto h-5 w-5 text-amber-700" />}
+                    {index > 2 && <span className="text-gray-500">{index + 1}</span>}
                   </td>
-                  <td className="px-4 py-4 font-bold">{entry.playerName}</td>
-                  <td className="px-3 py-4 text-center font-semibold">{entry.matchesPlayed}</td>
-                  <td className="px-3 py-4 text-center text-base font-black text-teal-600 dark:text-teal-400">
+                  <td className="px-3 py-3 font-medium text-gray-900">{entry.playerName}</td>
+                  <td className="px-2 py-3 text-center text-gray-600">{entry.matchesPlayed}</td>
+                  <td className="px-2 py-3 text-center text-sm font-bold text-gray-900">
                     {entry.pointsFor}
                   </td>
-                  <td className={`px-3 py-4 text-center font-bold ${diff > 0 ? 'text-emerald-500' : diff < 0 ? 'text-rose-500' : 'text-slate-400'}`}>
+                  <td className={`px-2 py-3 text-center font-medium text-xs ${diff > 0 ? 'text-green-600' : diff < 0 ? 'text-red-600' : 'text-gray-400'}`}>
                     {diff > 0 ? '+' : ''}{diff}
                   </td>
                 </tr>

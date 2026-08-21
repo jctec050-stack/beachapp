@@ -26,12 +26,7 @@
   --font-handwritten: var(--font-caveat);
 }
 
-body {
-  background: linear-gradient(135deg, #080c14 0%, #121a29 50%, #1a1625 100%);
-  background-attachment: fixed;
-  color: var(--color-on-surface);
-  font-family: var(--font-body), sans-serif;
-}
+
 
 /* Glassmorphism Effect */
 .coastal-mist {

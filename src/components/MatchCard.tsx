@@ -37,81 +37,85 @@ export function MatchCard({ courtNumber, team1, team2, onScoreSubmit, status, in
   };
 
   return (
-    <div className="relative overflow-hidden rounded-3xl bg-white/60 backdrop-blur-xl border border-white/60 p-6 shadow-xl transition-all hover:shadow-2xl dark:bg-slate-800/60 dark:border-slate-700/50">
-      <div className="absolute top-0 right-0 rounded-bl-2xl bg-gradient-to-r from-amber-400 to-orange-500 px-5 py-1.5 text-xs font-black text-white shadow-md">
-        Pista {courtNumber}
+    <div className="rounded-lg bg-white border border-gray-200 p-5 shadow-sm">
+      <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+        <span className="text-xs font-bold uppercase tracking-wider text-gray-500">
+          Pista {courtNumber}
+        </span>
+        {status === 'completed' && (
+          <span className="flex items-center text-xs font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-md">
+            <Trophy className="mr-1 h-3 w-3" /> Completado
+          </span>
+        )}
       </div>
 
-      <div className="mt-2 flex items-center justify-between space-x-4">
+      <div className="flex items-center justify-between space-x-2">
         {/* Team 1 */}
         <div className="flex-1 text-center">
-          <div className="flex flex-col items-center space-y-1">
-            <span className="font-bold text-gray-800 dark:text-gray-100">{team1[0].name}</span>
-            <span className="text-xs text-orange-500 dark:text-orange-400 font-black">&amp;</span>
-            <span className="font-bold text-gray-800 dark:text-gray-100">{team1[1].name}</span>
+          <div className="flex flex-col items-center">
+            <span className="font-semibold text-gray-900 text-sm">{team1[0].name}</span>
+            <span className="text-xs text-gray-400 my-0.5">&amp;</span>
+            <span className="font-semibold text-gray-900 text-sm">{team1[1].name}</span>
           </div>
         </div>
 
         {/* VS */}
-        <div className="flex flex-col items-center justify-center">
-          <Swords className="h-6 w-6 text-gray-400" />
-          <span className="mt-1 text-xs font-bold uppercase text-gray-500">VS</span>
+        <div className="flex flex-col items-center justify-center px-2">
+          <Swords className="h-4 w-4 text-gray-300" />
+          <span className="mt-1 text-[10px] font-bold text-gray-400">VS</span>
         </div>
 
         {/* Team 2 */}
         <div className="flex-1 text-center">
-          <div className="flex flex-col items-center space-y-1">
-            <span className="font-bold text-gray-800 dark:text-gray-100">{team2[0].name}</span>
-            <span className="text-xs text-orange-500 dark:text-orange-400 font-black">&amp;</span>
-            <span className="font-bold text-gray-800 dark:text-gray-100">{team2[1].name}</span>
+          <div className="flex flex-col items-center">
+            <span className="font-semibold text-gray-900 text-sm">{team2[0].name}</span>
+            <span className="text-xs text-gray-400 my-0.5">&amp;</span>
+            <span className="font-semibold text-gray-900 text-sm">{team2[1].name}</span>
           </div>
         </div>
       </div>
 
       {status === 'pending' ? (
-        <form onSubmit={handleSubmit} className="mt-6">
-          <div className="flex items-center justify-center space-x-6">
+        <form onSubmit={handleSubmit} className="mt-5">
+          <div className="flex items-center justify-center space-x-4">
             <input
               type="number"
               min="0"
               max="7"
               value={s1}
               onChange={(e) => setS1(e.target.value)}
-              className="w-24 h-24 rounded-3xl border-4 border-transparent bg-white/80 p-2 text-center text-5xl font-black shadow-inner focus:border-emerald-500 focus:bg-white focus:outline-none dark:bg-slate-700/80 dark:text-white dark:focus:bg-slate-600 transition-all"
+              className="w-16 h-16 rounded-md border border-gray-300 bg-gray-50 p-2 text-center text-2xl font-bold focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
               placeholder="0"
             />
-            <span className="text-2xl font-black text-gray-300">-</span>
+            <span className="text-lg font-bold text-gray-300">-</span>
             <input
               type="number"
               min="0"
               max="7"
               value={s2}
               onChange={(e) => setS2(e.target.value)}
-              className="w-24 h-24 rounded-3xl border-4 border-transparent bg-white/80 p-2 text-center text-5xl font-black shadow-inner focus:border-emerald-500 focus:bg-white focus:outline-none dark:bg-slate-700/80 dark:text-white dark:focus:bg-slate-600 transition-all"
+              className="w-16 h-16 rounded-md border border-gray-300 bg-gray-50 p-2 text-center text-2xl font-bold focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
               placeholder="0"
             />
           </div>
-          {error && <p className="mt-3 text-center text-sm font-bold text-red-500">{error}</p>}
+          {error && <p className="mt-2 text-center text-xs text-red-500">{error}</p>}
           <button
             type="submit"
-            className="mt-6 w-full rounded-full bg-gradient-to-r from-emerald-400 to-emerald-600 py-4 text-lg font-black text-white shadow-xl shadow-emerald-500/30 transition-all hover:scale-105 hover:shadow-emerald-500/50 active:scale-95"
+            className="mt-4 w-full rounded-md bg-gray-900 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-gray-800 active:bg-gray-700"
           >
-            Guardar Resultado
+            Guardar
           </button>
         </form>
       ) : (
-        <div className="mt-6 flex flex-col items-center justify-center">
-          <div className="flex items-center space-x-6 text-6xl font-black tracking-tighter">
-            <span className={initialScore?.team1! > initialScore?.team2! ? "text-emerald-500 drop-shadow-md" : "text-gray-400"}>
+        <div className="mt-5 flex flex-col items-center justify-center">
+          <div className="flex items-center space-x-4 text-3xl font-bold">
+            <span className={initialScore?.team1! > initialScore?.team2! ? "text-gray-900" : "text-gray-400"}>
               {initialScore?.team1}
             </span>
-            <span className="text-gray-300 text-4xl">-</span>
-            <span className={initialScore?.team2! > initialScore?.team1! ? "text-emerald-500 drop-shadow-md" : "text-gray-400"}>
+            <span className="text-gray-300 text-xl">-</span>
+            <span className={initialScore?.team2! > initialScore?.team1! ? "text-gray-900" : "text-gray-400"}>
               {initialScore?.team2}
             </span>
-          </div>
-          <div className="mt-3 flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-700 dark:bg-green-900/30 dark:text-green-400">
-            <Trophy className="mr-1 h-3 w-3" /> Completado
           </div>
         </div>
       )}
